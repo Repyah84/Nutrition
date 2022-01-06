@@ -1,0 +1,44 @@
+@use "sass:map";
+
+$typography-sizes: (
+  body-xl: (
+    font-size: 20px,
+    line-height: 32px,
+  ),
+  body-l: (
+    font-size: 18px,
+    line-height: 28px,
+  ),
+  body-m: (
+    font-size: 16px,
+    line-height: 24px,
+  ),
+  body-s: (
+    font-size: 14px,
+    line-height: 20px,
+  ),
+);
+
+$font-weights: (
+  regular: 400,
+  bold: 700,
+  black: 900,
+);
+
+$colors: (
+  nutrition-primary: #007bff,
+  nutrition-secondary: #6c757d,
+  nutrition-success: #28a745,
+  nutrition-info: #17a2b8,
+  nutrition-warning: #ffc107,
+  nutrition-danger: #dc3545,
+  nutrition-light: #f8f9fa,
+  nutrition-dark: #343a40,
+);
+
+$grid-brackpoints: (
+  nutrition-breakpoint-sm: 576px,
+  nutrition-breakpoint-md: 768px,
+  nutrition-breakpoint-lg: 992px,
+  nutrition-breakpoint-xl: 1200px,
+);

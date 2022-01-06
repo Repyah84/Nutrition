@@ -1,0 +1,15 @@
+@use "functions";
+
+@mixin typography($size-key, $font-weight-key: "regular") {
+  font-size: functions.font-size($size-key);
+  font-weight: functions.font-weight($font-weight-key);
+  line-height: functions.line-height($size-key);
+}
+
+@mixin media($breakpoin-name) {
+  $breakpoin: functions.breakpoin($breakpoin-name);
+
+  @media (min-width: $breakpoin) {
+    @content;
+  }
+}
