@@ -1,19 +1,29 @@
 @use "sass:map";
-@use "sass:math";
+@use "sass:list";
+
 @use "variables";
 
-@function color($color-key) {
-  $color: map.get(variables.$colors, $color-key);
+@function color($color-segments) {
+  $colors-list: map.get(
+    variables.$nutrition-colors,
+    list.nth($color-segments, 1)
+  );
 
-  @if not $color {
-    @error "Color #{$color-key} does not exist.";
+  @if $colors-list == nul {
+    @error 'Çolor #{$colors-list} list does not exist.';
+  }
+
+  $color: map.get($colors-list, list.nth($color-segments, 2));
+
+  @if $color == null {
+    @error "Color #{$color} does not exist.";
   }
 
   @return $color;
 }
 
 @function breakpoin($name) {
-  $min: map.get(variables.$grid-brackpoints, $name);
+  $min: map.get(variables.$nutrition-grid-brackpoints, $name);
 
   @if not $min {
     @error "Breakpoin #{$name} does not exist.";
