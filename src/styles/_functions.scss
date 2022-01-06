@@ -2,34 +2,6 @@
 @use "sass:math";
 @use "variables";
 
-@function font-size($typography-size-key) {
-  @return map.get(typography-size($typography-size-key), "font-size");
-}
-
-@function line-height($typography-size-key) {
-  @return map.get(typography-size($typography-size-key), "line-height");
-}
-
-@function typography-size($typography-size-key) {
-  $typography-size: map.get(variables.$typography-sizes, $typography-size-key);
-
-  @if not $typography-size {
-    @error "Typography size #{$typography-size} does not exist.";
-  }
-
-  @return $typography-size;
-}
-
-@function font-weight($font-weight-key) {
-  $font-weight: map.get(variables.$font-weights, $font-weight-key);
-
-  @if not $font-weight {
-    @error "Font weight #{$font-weight} does not exist.";
-  }
-
-  @return $font-weight;
-}
-
 @function color($color-key) {
   $color: map.get(variables.$colors, $color-key);
 
