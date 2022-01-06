@@ -1,39 +1,95 @@
 @use "sass:map";
 
-$typography-sizes: (
-  body-xl: (
-    font-size: 20px,
-    line-height: 32px,
-  ),
-  body-l: (
-    font-size: 18px,
-    line-height: 28px,
-  ),
-  body-m: (
-    font-size: 16px,
-    line-height: 24px,
-  ),
-  body-s: (
-    font-size: 14px,
-    line-height: 20px,
-  ),
-);
-
-$font-weights: (
-  regular: 400,
-  bold: 700,
-  black: 900,
-);
-
 $colors: (
-  nutrition-primary: #007bff,
-  nutrition-secondary: #6c757d,
-  nutrition-success: #28a745,
-  nutrition-info: #17a2b8,
-  nutrition-warning: #ffc107,
-  nutrition-danger: #dc3545,
   nutrition-light: #f8f9fa,
   nutrition-dark: #343a40,
+);
+
+$nutrition-primary: (
+  50: #e7f6e9,
+  100: #c5e9ca,
+  200: #9fdaa8,
+  300: #76cd85,
+  400: #56c26a,
+  500: #32b64f,
+  600: #28a746,
+  700: #1a953a,
+  800: #0a842f,
+  900: #00641b,
+  contrast: (
+    50: map.get($colors, "nutrition-dark"),
+    100: map.get($colors, "nutrition-dark"),
+    200: map.get($colors, "nutrition-dark"),
+    300: map.get($colors, "nutrition-dark"),
+    400: map.get($colors, "nutrition-dark"),
+    500: map.get($colors, "nutrition-light"),
+    600: map.get($colors, "nutrition-light"),
+    700: map.get($colors, "nutrition-light"),
+    800: map.get($colors, "nutrition-light"),
+    900: map.get($colors, "nutrition-light"),
+    A100: map.get($colors, "nutrition-dark"),
+    A200: map.get($colors, "nutrition-light"),
+    A400: map.get($colors, "nutrition-light"),
+    A700: map.get($colors, "nutrition-light"),
+  ),
+);
+
+$nutrition-accent: (
+  50: #f5e5f0,
+  100: #e6bdda,
+  200: #d692c2,
+  300: #c467aa,
+  400: #b64799,
+  500: #a72889,
+  600: #9b2384,
+  700: #8a1c7d,
+  800: #7b1775,
+  900: #600f66,
+  contrast: (
+    50: map.get($colors, "nutrition-dark"),
+    100: map.get($colors, "nutrition-dark"),
+    200: map.get($colors, "nutrition-dark"),
+    300: map.get($colors, "nutrition-dark"),
+    400: map.get($colors, "nutrition-dark"),
+    500: map.get($colors, "nutrition-light"),
+    600: map.get($colors, "nutrition-light"),
+    700: map.get($colors, "nutrition-light"),
+    800: map.get($colors, "nutrition-light"),
+    900: map.get($colors, "nutrition-light"),
+    A100: map.get($colors, "nutrition-dark"),
+    A200: map.get($colors, "nutrition-light"),
+    A400: map.get($colors, "nutrition-light"),
+    A700: map.get($colors, "nutrition-light"),
+  ),
+);
+
+$nutrition-worn: (
+  50: #e1f4fc,
+  100: #b4e5f7,
+  200: #85d5f0,
+  300: #59c4e7,
+  400: #40b8de,
+  500: #38acd5,
+  600: #329dc1,
+  700: #2889a7,
+  800: #20768e,
+  900: #135462,
+  contrast: (
+    50: map.get($colors, "nutrition-dark"),
+    100: map.get($colors, "nutrition-dark"),
+    200: map.get($colors, "nutrition-dark"),
+    300: map.get($colors, "nutrition-dark"),
+    400: map.get($colors, "nutrition-dark"),
+    500: map.get($colors, "nutrition-light"),
+    600: map.get($colors, "nutrition-light"),
+    700: map.get($colors, "nutrition-light"),
+    800: map.get($colors, "nutrition-light"),
+    900: map.get($colors, "nutrition-light"),
+    A100: map.get($colors, "nutrition-dark"),
+    A200: map.get($colors, "nutrition-light"),
+    A400: map.get($colors, "nutrition-light"),
+    A700: map.get($colors, "nutrition-light"),
+  ),
 );
 
 $grid-brackpoints: (
