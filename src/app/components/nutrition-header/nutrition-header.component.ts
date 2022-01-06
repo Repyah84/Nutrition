@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-nutrition-header',
+  selector: 'header[nutrition-header]',
   templateUrl: './nutrition-header.component.html',
-  styleUrls: ['./nutrition-header.component.scss']
+  styleUrls: ['./nutrition-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NutritionHeaderComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class NutritionHeaderComponent {}

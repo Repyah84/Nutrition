@@ -3,15 +3,11 @@
 @use "variables";
 
 @function font-size($typography-size-key) {
-  $typography-size: typography-size($typography-size-key);
-
-  @return map.get($typography-size, "font-size");
+  @return map.get(typography-size($typography-size-key), "font-size");
 }
 
 @function line-height($typography-size-key) {
-  $typography-size: typography-size($typography-size-key);
-
-  @return map.get($typography-size, "line-height");
+  @return map.get(typography-size($typography-size-key), "line-height");
 }
 
 @function typography-size($typography-size-key) {
@@ -48,7 +44,7 @@
   $min: map.get(variables.$grid-brackpoints, $name);
 
   @if not $min {
-    @error "breakpoin #{$name} does not exist.";
+    @error "Breakpoin #{$name} does not exist.";
   }
 
   @return $min;
