@@ -1,1 +1,6 @@
-<p>nutrition-header works!</p>
+<a
+  *ngFor="let router of routes"
+  [routerLink]="[router.path]"
+  routerLinkActive="active-link"
+  >{{ router.path }}
+</a>
