@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NutritionRoutersPages } from './app-routing-pages.emun';
+import { NutritionRoutersPages } from './types/nutrition-routing-pages.emun';
 
 export const nutritionRoutes: Routes = [
   {
@@ -56,4 +56,4 @@ export const nutritionRoutes: Routes = [
   imports: [RouterModule.forRoot(nutritionRoutes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class NutritionRoutingModule {}
