@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NutritionAuthService } from 'src/app/auth/nutrition-auth.service';
 import { switchMap } from 'rxjs/operators';
 import { NutritionRoutersPages } from 'src/app/types/nutrition-routing-pages.emun';
+import { Observable } from 'rxjs';
+import { UserCredential } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-nutrition-sing-in-page',
@@ -17,27 +19,17 @@ export class NutritionSingInPageComponent {
   ) {}
 
   public onSingInGoogle(): void {
-    this._auth
-      .loginWithGoogle()
-      .pipe(
-        switchMap((r) => {
-          console.log('GOGLE', r);
-
-          return this._router.navigate([NutritionRoutersPages.CARDS]);
-        })
-      )
-      .subscribe();
+    this._authAction(() => this._auth.loginWithGoogle());
   }
 
   public onSingInAnonimus(): void {
-    this._auth
-      .loginAnonymously()
-      .pipe(
-        switchMap((r) => {
-          console.log('onSingInAnonimus', r);
+    this._authAction(() => this._auth.loginAnonymously());
+  }
 
-          return this._router.navigate([NutritionRoutersPages.CARDS]);
-        })
+  private _authAction(fun: () => Observable<UserCredential>): void {
+    fun()
+      .pipe(
+        switchMap(() => this._router.navigate([NutritionRoutersPages.CARDS]))
       )
       .subscribe();
   }
