@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NutritionRoutersPages } from './types/nutrition-routing-pages.emun';
 
-export const nutritionRoutes: Routes = [
+const nutritionRoutes: Routes = [
   {
-    path: NutritionRoutersPages.CARDS,
+    path: NutritionRoutersPages.NOTES,
     loadChildren: () =>
       import('./pages/nutrition-cards-page/nutrition-cards-page.module').then(
         (m) => m.NutritionCardsPageModule
       ),
   },
   {
-    path: NutritionRoutersPages.CARD,
+    path: NutritionRoutersPages.NOTE,
     loadChildren: () =>
       import('./pages/nutrition-card-page/nutrition-card-page.module').then(
         (m) => m.NutritionCardPageModule
@@ -40,7 +40,7 @@ export const nutritionRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: NutritionRoutersPages.CARDS,
+    redirectTo: NutritionRoutersPages.NOTES,
     pathMatch: 'full',
   },
   {

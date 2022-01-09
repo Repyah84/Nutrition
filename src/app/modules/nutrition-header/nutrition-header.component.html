@@ -1,11 +1,33 @@
-<div style="display: flex">
-  <a
-    *ngFor="let router of routes"
-    [routerLink]="[router.path]"
-    routerLinkActive="active-link"
-    style="margin: 0 10px"
-    >{{ router.path }}
-  </a>
-</div>
+<a class="notes-link" [routerLink]="notesPage"
+  ><mat-icon>notes</mat-icon> <br />
 
-<button mat-raised-button color="accent" (click)="onLogAout()">Log Aout</button>
+  <span>Notes</span></a
+>
+
+<button
+  nutritionBodyAction
+  (hostClick)="isOpen = !isOpen"
+  (bodyClick)="isOpen = false"
+  mat-icon-button
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+>
+  <mat-icon>account_circle</mat-icon>
+</button>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen"
+  class="navigation"
+>
+  <div @emergenceAnimation class="navigation">
+    <a class="link" [routerLink]="profilePgae" routerLinkActive="link-active"
+      >Profile</a
+    >
+
+    <a class="link" [routerLink]="singInPage" routerLinkActive="link-active"
+      >Log Out</a
+    >
+  </div>
+</ng-template>

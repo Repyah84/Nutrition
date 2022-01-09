@@ -29,7 +29,7 @@ export class NutritionSingInPageComponent {
   private _authAction(fun: () => Observable<UserCredential>): void {
     fun()
       .pipe(
-        switchMap(() => this._router.navigate([NutritionRoutersPages.CARDS]))
+        switchMap(() => this._router.navigate([NutritionRoutersPages.NOTES]))
       )
       .subscribe();
   }

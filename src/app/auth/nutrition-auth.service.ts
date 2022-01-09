@@ -28,4 +28,6 @@ export class NutritionAuthService {
   public logout(): Observable<void> {
     return from(signOut(this._auth));
   }
+
+  // TODO signInWithEmailAndPassword(auth: Auth, email: string, password: string): Promise<UserCredential>;
 }

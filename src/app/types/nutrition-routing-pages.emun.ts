@@ -1,7 +1,7 @@
 export enum NutritionRoutersPages {
   PROFILE = 'profile',
-  CARDS = 'cards',
-  CARD = 'card',
+  NOTES = 'notes',
+  NOTE = 'note',
   SING_IN = 'sing-in',
   SING_UP = 'sing-up',
 }

@@ -6,7 +6,7 @@ import { NutritionAuthService } from '../auth/nutrition-auth.service';
 import { NutritionRoutersPages } from '../types/nutrition-routing-pages.emun';
 
 @Injectable({ providedIn: 'root' })
-export class NutritionUnauthGuardSrvice implements CanActivate {
+export class NutritionAuthGuardSrvice implements CanActivate {
   public constructor(
     private readonly _auth: NutritionAuthService,
     private readonly _router: Router
