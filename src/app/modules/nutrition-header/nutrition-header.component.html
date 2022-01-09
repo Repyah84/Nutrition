@@ -1,0 +1,11 @@
+<div style="display: flex">
+  <a
+    *ngFor="let router of routes"
+    [routerLink]="[router.path]"
+    routerLinkActive="active-link"
+    style="margin: 0 10px"
+    >{{ router.path }}
+  </a>
+</div>
+
+<button mat-raised-button color="accent" (click)="onLogAout()">Log Aout</button>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NutritionCardsPageComponent } from './nutrition-cards-page.component';
 import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -11,6 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [NutritionCardsPageComponent],
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), CommonModule],
 })
 export class NutritionCardsPageModule {}
