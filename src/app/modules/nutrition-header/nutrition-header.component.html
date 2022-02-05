@@ -4,6 +4,10 @@
   <span>Notes</span></a
 >
 
+<button mat-raised-button color="primary" (click)="onAddNote()">
+  Add Note
+</button>
+
 <button
   nutritionBodyAction
   (hostClick)="isOpen = !isOpen"
@@ -22,11 +26,11 @@
   class="navigation"
 >
   <div @emergenceAnimation class="navigation">
-    <a class="link" [routerLink]="profilePgae" routerLinkActive="link-active"
+    <a class="link" [routerLink]="profilePage" routerLinkActive="link--active"
       >Profile</a
     >
 
-    <a class="link" [routerLink]="singInPage" routerLinkActive="link-active"
+    <a class="link" [routerLink]="singInPage" routerLinkActive="link--active"
       >Log Out</a
     >
   </div>

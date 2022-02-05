@@ -1,1 +1,9 @@
-<code *ngIf="list$ | async as list">{{ list | json }}</code>
+<div class="notes">
+  <div *ngFor="let note of notes$ | async" class="note">
+    <h3>{{ note.title }}</h3>
+
+    <button mat-stroked-button color="accent" (click)="onDelete(note.noteId)">
+      Delete
+    </button>
+  </div>
+</div>

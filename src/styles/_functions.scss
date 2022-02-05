@@ -9,8 +9,8 @@
     list.nth($color-segments, 1)
   );
 
-  @if $colors-list == nul {
-    @error 'Çolor #{$colors-list} list does not exist.';
+  @if $colors-list == null {
+    @error 'Color #{$colors-list} list does not exist.';
   }
 
   $color: map.get($colors-list, list.nth($color-segments, 2));
@@ -22,11 +22,11 @@
   @return $color;
 }
 
-@function breakpoin($name) {
-  $min: map.get(variables.$nutrition-grid-brackpoints, $name);
+@function breakpoint($name) {
+  $min: map.get(variables.$nutrition-grid-breakpoints, $name);
 
   @if not $min {
-    @error "Breakpoin #{$name} does not exist.";
+    @error "Breakpoint #{$name} does not exist.";
   }
 
   @return $min;

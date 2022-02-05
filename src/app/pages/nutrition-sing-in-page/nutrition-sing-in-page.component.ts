@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NutritionAuthService } from 'src/app/auth/nutrition-auth.service';
 import { switchMap } from 'rxjs/operators';
 import { NutritionRoutersPages } from 'src/app/types/nutrition-routing-pages.emun';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserCredential } from '@angular/fire/auth';
 
 @Component({
@@ -12,7 +12,9 @@ import { UserCredential } from '@angular/fire/auth';
   styleUrls: ['./nutrition-sing-in-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NutritionSingInPageComponent {
+export class NutritionSingInPageComponent implements OnDestroy {
+  private readonly _subscription = new Subscription();
+
   public constructor(
     private readonly _auth: NutritionAuthService,
     private readonly _router: Router
@@ -22,15 +24,21 @@ export class NutritionSingInPageComponent {
     this._authAction(() => this._auth.loginWithGoogle());
   }
 
-  public onSingInAnonimus(): void {
+  public onSingInAnonymous(): void {
     this._authAction(() => this._auth.loginAnonymously());
   }
 
   private _authAction(fun: () => Observable<UserCredential>): void {
-    fun()
-      .pipe(
-        switchMap(() => this._router.navigate([NutritionRoutersPages.NOTES]))
-      )
-      .subscribe();
+    this._subscription.add(
+      fun()
+        .pipe(
+          switchMap(() => this._router.navigate([NutritionRoutersPages.NOTES]))
+        )
+        .subscribe()
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 }

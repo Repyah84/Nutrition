@@ -13,7 +13,7 @@ import { from, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class NutritionAuthService {
-  public readonly authSate: Observable<User | null> = authState(this._auth);
+  public readonly user$: Observable<User | null> = authState(this._auth);
 
   public constructor(private readonly _auth: Auth) {}
 
