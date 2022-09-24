@@ -1,0 +1,40 @@
+<div class="nutrition">
+  <img class="image" [src]="nutritionixItem.photo.thumb" />
+
+  <span class="name">{{ nutritionixItem.food_name | titlecase }}</span>
+</div>
+
+<div class="nutrients">
+  <span>{{ nutritionixItem.nf_calories | number: "1.0-2" }}</span>
+  <span class="calories-title"> cl</span>
+</div>
+
+<div class="calculate">
+  <button
+    mat-icon-button
+    (click)="onAddItem(nutritionixItem.food_name)"
+    color="primary"
+  >
+    <mat-icon>add_circle_outline</mat-icon>
+  </button>
+
+  <span class="count">{{ nutritionixItem.count }}</span>
+
+  <button
+    mat-icon-button
+    [disabled]="nutritionixItem.count < 2"
+    (click)="onDeleteItem(nutritionixItem.food_name)"
+    color="primary"
+  >
+    <mat-icon>remove_circle_outline</mat-icon>
+  </button>
+</div>
+
+<button
+  class="btn-delete"
+  mat-icon-button
+  (click)="onExclude(nutritionixItem.food_name)"
+  color="warn"
+>
+  <mat-icon>delete_forever</mat-icon>
+</button>

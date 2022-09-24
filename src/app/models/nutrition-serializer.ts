@@ -5,7 +5,7 @@ export abstract class NutritionSerializer<A, B> {
     return typeof value === 'string';
   }
 
-  public numberGuard(value: unknown): value is string {
+  public numberGuard(value: unknown): value is number {
     return typeof value === 'number';
   }
 

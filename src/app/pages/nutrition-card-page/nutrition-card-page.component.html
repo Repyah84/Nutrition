@@ -1,0 +1,47 @@
+<mat-form-field
+  class="search"
+  appearance="outline"
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+>
+  <mat-label>Search Nutrition</mat-label>
+
+  <input matInput type="text" [formControl]="search" />
+
+  <button
+    *ngIf="search.value"
+    matSuffix
+    color="warn"
+    mat-icon-button
+    (click)="onBtnClear()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<ng-container *ngIf="nutritionComposition$ | async as nutritionComposition">
+  <div class="nutrition-list">
+    <app-nutrition-nutritionix-item
+      *ngFor="let item of nutritionComposition.nutritionixItems"
+      [nutritionixItem]="item"
+    ></app-nutrition-nutritionix-item>
+  </div>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="nutritionComposition.isOpen"
+  >
+    <div @emergenceAnimation class="items-list">
+      <div
+        *ngFor="let item of nutritionComposition.items"
+        class="food-item"
+        (click)="onSelectItem(item.food_name)"
+      >
+        <img [src]="item.photo.thumb" class="item-image" />
+
+        <span>{{ item.food_name }}</span>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>

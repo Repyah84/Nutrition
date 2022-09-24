@@ -4,5 +4,7 @@ export interface NutritionFirebaseConfig {
   readonly projectId: string;
   readonly storageBucket: string;
   readonly messagingSenderId: string;
+  readonly databaseURL: string;
   readonly appId: string;
+  readonly locationId: string;
 }

@@ -1,0 +1,94 @@
+@use "../../../../../styles/functions";
+
+%_flex-center {
+  display: flex;
+  align-items: center;
+}
+
+%_title {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 900;
+}
+
+:host {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "nutrition calculate"
+    "nutrients btn-delete";
+  gap: 6px;
+
+  justify-content: start;
+}
+
+.nutrition {
+  @extend %_flex-center;
+
+  grid-area: nutrition;
+
+  padding: 18px 10px;
+
+  column-gap: 6px;
+
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px functions.color(primary 700);
+}
+
+.image {
+  display: block;
+
+  max-height: 50px;
+
+  object-fit: cover;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+  color: functions.color(base dark);
+}
+
+.calculate {
+  grid-area: calculate;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.count {
+  @extend %_title;
+
+  text-align: center;
+
+  color: functions.color(primary 900);
+}
+
+.nutrients {
+  @extend %_flex-center;
+  @extend %_title;
+
+  grid-area: nutrients;
+
+  padding: 10px 6px;
+  min-width: 120px;
+
+  justify-content: center;
+  gap: 3px;
+
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px functions.color(primary 700);
+
+  color: functions.color(accent 700);
+}
+
+.calories-title {
+  font-size: 14px;
+
+  color: functions.color(base dark);
+}
+
+.btn-delete {
+  grid-area: btn-delete;
+}

@@ -13,8 +13,11 @@ export class NutritionNoteDocumentSerializer extends NutritionSerializer<
   public get nutritionNoteDocument(): NutritionNoteDocument {
     return {
       noteId: this.serialize('noteId', this.stringGuard),
-      title: this.serialize('title', this.stringGuard),
-      nutrition: this.serialize<Array<number>>('nutrition', this.arrayGuard),
+      date: this.serialize('date', this.numberGuard),
+      nutrition: this.serialize(
+        'nutrition',
+        (value: unknown): value is DocumentData => true
+      ),
     };
   }
 }
