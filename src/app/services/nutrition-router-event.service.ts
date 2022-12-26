@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Observable, map, shareReplay, pipe, tap } from 'rxjs';
+import { NutritionRoutersPages } from '../types/nutrition-routing-pages.enum';
 
 @Injectable({ providedIn: 'root' })
 export class NutritionRouterEventService {
@@ -11,11 +12,13 @@ export class NutritionRouterEventService {
 
   public constructor(private readonly _router: Router) {}
 
-  public handling(urlSegment: string): Observable<boolean> {
+  public handling(urlSegment: NutritionRoutersPages): Observable<boolean> {
     return this._event$.pipe(
-      map(({ urlAfterRedirects }) =>
-        urlAfterRedirects.split('/').some((text) => text === urlSegment)
-      )
+      map(({ urlAfterRedirects }) => {
+        const reg = new RegExp(`[/]${urlSegment}(?=$|[?])`);
+
+        return urlAfterRedirects.search(reg) === 0 ? true : false;
+      })
     );
   }
 }

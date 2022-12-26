@@ -16,7 +16,6 @@ import { User } from 'firebase/auth';
 
 import { filter, from, Observable, switchMap, map } from 'rxjs';
 import { NutritionAuthService } from '../auth/nutrition-auth.service';
-import { NutritionNoteDocument } from '../types/nutrition-note-document.interface';
 import { NutritionNote } from '../types/nutrition-note.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -59,12 +58,13 @@ export class NutritionFireStoreService {
   }
 
   public updateNutritionDocument(
-    note: NutritionNoteDocument
+    noteId: string,
+    note: NutritionNote
   ): Observable<void> {
     return this._nutritionMetadata((userId: string) =>
       from(
         updateDoc(
-          doc(this._fireStore, `nutrition/${userId}/notes/${note.noteId}`),
+          doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`),
           note
         )
       )

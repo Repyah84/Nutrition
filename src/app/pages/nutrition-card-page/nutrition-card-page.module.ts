@@ -10,16 +10,12 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NutritionBodyActionModule } from 'src/app/modules/nutrition-body-action/nutrition-body-action.module';
 import { MatIconModule } from '@angular/material/icon';
 import { NutritionNutritionixItemComponent } from './components/nutrition-nutritionix-item/nutrition-nutritionix-item.component';
-import { NutritionCardPageResolverService } from './resolvers/nutrition-card-page.resolver.service';
 
 const routes: Routes = [
   {
     path: '',
     component: NutritionCardPageComponent,
     canActivate: [NutritionAuthGuardService],
-    resolve: {
-      note: NutritionCardPageResolverService,
-    },
   },
 ];
 

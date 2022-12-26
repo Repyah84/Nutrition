@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   defer,
-  finalize,
   map,
   scan,
   shareReplay,
   startWith,
   Subject,
   switchMap,
-  tap,
 } from 'rxjs';
 import { NutritionNutritionixItem } from '../types/nutrition-nutritionix-item.interface';
 import { NutritionNutritionixState } from '../types/nutrition-nutritionix-state.interface';
+import { NutritionRoutersPages } from '../types/nutrition-routing-pages.enum';
+import { NutritionNotesCacheService } from './nutrition-notes-cache.service';
 import { NutritionNutritionixCacheService } from './nutrition-nutritionix-cache.service';
+import { NutritionRouterEventService } from './nutrition-router-event.service';
 
 interface itemProperty {
   itemName: string;
@@ -21,97 +23,95 @@ interface itemProperty {
 
 @Injectable({ providedIn: 'root' })
 export class NutritionNutritionixStateService {
-  private _value: NutritionNutritionixState = {};
-
-  public set value(state: NutritionNutritionixState) {
-    this._value = state;
-  }
-
-  public get value(): NutritionNutritionixState {
-    return this._value;
-  }
-
   private readonly _nutritionixStateAction$ = new Subject<itemProperty>();
 
-  public readonly nutritionNutritionixState$ = defer(() =>
-    this._nutritionixStateAction$.pipe(
-      finalize(() => (this.value = {})),
-      switchMap(({ itemName, count }) =>
-        this._nutritionixCache
-          .getItem(itemName)
-          .pipe(
-            map<NutritionNutritionixItem, [NutritionNutritionixItem, number]>(
-              (nutritionixItem) => [nutritionixItem, count]
+  public readonly nutritionNutritionixState$ = this._routeHandling
+    .handling(NutritionRoutersPages.NOTE)
+    .pipe(
+      switchMap(() =>
+        defer(() =>
+          this._nutritionNotesCache
+            .getItem(
+              this._route.snapshot.queryParamMap.get('noteId') ?? 'notNoteId'
             )
-          )
+            .pipe(
+              map((nutritionDocument) =>
+                nutritionDocument === undefined
+                  ? ({} as NutritionNutritionixState)
+                  : nutritionDocument.nutrition
+              )
+            )
+        )
       ),
-      scan<[NutritionNutritionixItem, number], NutritionNutritionixState>(
-        (
-          state,
-          [
-            {
-              food_name,
-              nf_calories,
-              nf_cholesterol,
-              nf_protein,
-              nf_saturated_fat,
-              nf_sugars,
-              photo,
+      switchMap((nutrition) =>
+        this._nutritionixStateAction$.pipe(
+          switchMap((noteProperty) =>
+            this._nutritionixCache
+              .getItem(noteProperty.itemName)
+              .pipe(
+                map<
+                  NutritionNutritionixItem,
+                  [itemProperty, NutritionNutritionixItem]
+                >((nutritionix) => [noteProperty, nutritionix])
+              )
+          ),
+          scan<
+            [itemProperty, NutritionNutritionixItem],
+            NutritionNutritionixState
+          >(
+            (
+              state,
+              [
+                { count },
+                {
+                  food_name,
+                  nf_calories,
+                  nf_cholesterol,
+                  nf_protein,
+                  nf_saturated_fat,
+                  nf_sugars,
+                  photo,
+                },
+              ]
+            ) => {
+              if (count === 0) {
+                delete state[food_name];
+
+                return state;
+              }
+
+              const stateItemCont =
+                state[food_name] === undefined
+                  ? count
+                  : state[food_name].count + count;
+
+              return {
+                ...state,
+                [food_name]: {
+                  count: stateItemCont,
+                  food_name,
+                  nf_calories: nf_calories * stateItemCont,
+                  nf_cholesterol: nf_cholesterol * stateItemCont,
+                  nf_protein: nf_protein * stateItemCont,
+                  nf_saturated_fat: nf_saturated_fat * stateItemCont,
+                  nf_sugars: nf_sugars * stateItemCont,
+                  photo,
+                },
+              };
             },
-            count,
-          ]
-        ) => {
-          if (state[food_name] === undefined) {
-            return {
-              ...state,
-              [food_name]: {
-                count,
-                food_name,
-                nf_calories,
-                nf_cholesterol,
-                nf_protein,
-                nf_saturated_fat,
-                nf_sugars,
-                photo,
-              },
-            };
-          }
-
-          const stateItemCont = state[food_name].count + count;
-
-          if (count === 0 || stateItemCont < 1) {
-            delete state[food_name];
-
-            return state;
-          }
-
-          return {
-            ...state,
-            [food_name]: {
-              count: stateItemCont,
-              food_name,
-              nf_calories: nf_calories * stateItemCont,
-              nf_cholesterol: nf_cholesterol * stateItemCont,
-              nf_protein: nf_protein * stateItemCont,
-              nf_saturated_fat: nf_saturated_fat * stateItemCont,
-              nf_sugars: nf_sugars * stateItemCont,
-              photo,
-            },
-          };
-        },
-
-        this._value
+            nutrition
+          ),
+          startWith(nutrition)
+        )
       ),
-      tap((state) => {
-        this.value = state;
-      }),
-      startWith(this._value),
       shareReplay({ refCount: true, bufferSize: 1 })
-    )
-  );
+    );
 
   public constructor(
-    private readonly _nutritionixCache: NutritionNutritionixCacheService
+    private readonly _nutritionixCache: NutritionNutritionixCacheService,
+    private readonly _nutritionNotesCache: NutritionNotesCacheService,
+    private readonly _routeHandling: NutritionRouterEventService,
+    private readonly _route: ActivatedRoute
   ) {}
 
   public add(item: itemProperty): void {

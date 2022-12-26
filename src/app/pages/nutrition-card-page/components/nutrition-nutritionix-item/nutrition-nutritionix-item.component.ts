@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { NutritionixStateItem } from 'src/app/types/nutrition-nutritionix-state.interface';
-import { NutritionCardService } from '../../nutrition-card-page.service';
+import { NutritionCardPageService } from '../../nutrition-card-page.service';
 
 @Component({
   selector: 'app-nutrition-nutritionix-item',
@@ -11,7 +11,7 @@ import { NutritionCardService } from '../../nutrition-card-page.service';
 export class NutritionNutritionixItemComponent {
   @Input() public nutritionixItem!: NutritionixStateItem;
 
-  public constructor(private readonly _nutritionix: NutritionCardService) {}
+  public constructor(private readonly _nutritionix: NutritionCardPageService) {}
 
   public onAddItem(itemName: string): void {
     this._nutritionix.addNutritionixItem(itemName);

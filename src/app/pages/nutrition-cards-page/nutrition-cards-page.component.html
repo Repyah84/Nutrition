@@ -6,7 +6,11 @@
   >
     <h3>{{ note.title }}</h3>
 
-    <button mat-stroked-button color="accent" (click)="onDelete(note.noteId)">
+    <button
+      mat-stroked-button
+      color="accent"
+      (click)="onDelete($event, note.noteId)"
+    >
       Delete
     </button>
   </div>

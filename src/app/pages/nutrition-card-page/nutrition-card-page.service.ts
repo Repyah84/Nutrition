@@ -5,17 +5,17 @@ import {
   mapTo,
   merge,
   Observable,
-  share,
   shareReplay,
   startWith,
   Subject,
   switchMap,
+  tap,
 } from 'rxjs';
 import { NutritionNutritionixActionService } from 'src/app/services/nutrition-nutritionix-action.service';
 import { NutritionNutritionixStateService } from 'src/app/services/nutrition-nutritionix-state.service';
 
 @Injectable()
-export class NutritionCardService {
+export class NutritionCardPageService {
   public readonly invalidateState$ = new Subject<void>();
 
   private readonly _nutrition$ = new Subject<string>();
@@ -28,7 +28,8 @@ export class NutritionCardService {
 
   private readonly _nutritionixItems$ =
     this._nutritionixState.nutritionNutritionixState$.pipe(
-      map((nutritionixItemsState) => Object.values(nutritionixItemsState))
+      map((nutritionixItemsState) => Object.values(nutritionixItemsState)),
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
 
   private readonly _overlay$: Observable<boolean> = merge(

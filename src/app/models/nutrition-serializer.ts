@@ -19,7 +19,10 @@ export abstract class NutritionSerializer<A, B> {
     return key in this.obj;
   }
 
-  public serialize<T>(key: keyof A, fn: (value: unknown) => value is T): T {
+  public serialize<T, K extends keyof A>(
+    key: K,
+    fn: (value: unknown) => value is T
+  ): T {
     if (this.hasField(key)) {
       const value = this.obj[key];
 
@@ -28,6 +31,7 @@ export abstract class NutritionSerializer<A, B> {
       }
     }
 
-    throw new Error(`${key} is undefined`);
+    //TODO set current type key
+    throw new Error(`${String(key)} is undefined`);
   }
 }
