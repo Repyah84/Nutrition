@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, Observable, map, shareReplay, pipe, tap } from 'rxjs';
+import { filter, Observable, map, shareReplay } from 'rxjs';
 import { NutritionRoutersPages } from '../types/nutrition-routing-pages.enum';
 
 @Injectable({ providedIn: 'root' })

@@ -28,5 +28,7 @@ export class NutritionHeaderActionComponent {
     this._nutrition.saveNote();
   }
 
-  public onCancel(): void {}
+  public onCancel(): void {
+    this._nutrition.cancel();
+  }
 }

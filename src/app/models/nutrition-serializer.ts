@@ -1,4 +1,4 @@
-export abstract class NutritionSerializer<A, B> {
+export abstract class NutritionSerializer<A extends Object, B extends Object> {
   public constructor(protected readonly obj: B) {}
 
   public stringGuard(value: unknown): value is string {
@@ -31,7 +31,6 @@ export abstract class NutritionSerializer<A, B> {
       }
     }
 
-    //TODO set current type key
     throw new Error(`${String(key)} is undefined`);
   }
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   defer,
+  filter,
+  first,
   map,
   scan,
   shareReplay,
@@ -28,6 +30,7 @@ export class NutritionNutritionixStateService {
   public readonly nutritionNutritionixState$ = this._routeHandling
     .handling(NutritionRoutersPages.NOTE)
     .pipe(
+      filter((value) => value),
       switchMap(() =>
         defer(() =>
           this._nutritionNotesCache
@@ -39,7 +42,8 @@ export class NutritionNutritionixStateService {
                 nutritionDocument === undefined
                   ? ({} as NutritionNutritionixState)
                   : nutritionDocument.nutrition
-              )
+              ),
+              first()
             )
         )
       ),

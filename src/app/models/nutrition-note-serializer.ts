@@ -1,5 +1,6 @@
 import { DocumentData } from '@angular/fire/firestore';
 import { NutritionNoteDocument } from '../types/nutrition-note-document.interface';
+import { NutritionNutritionixState } from '../types/nutrition-nutritionix-state.interface';
 import { NutritionSerializer } from './nutrition-serializer';
 
 export class NutritionNoteDocumentSerializer extends NutritionSerializer<
@@ -16,7 +17,7 @@ export class NutritionNoteDocumentSerializer extends NutritionSerializer<
       date: this.serialize('date', this.numberGuard),
       nutrition: this.serialize(
         'nutrition',
-        (value: unknown): value is DocumentData => true
+        (value: unknown): value is NutritionNutritionixState => true
       ),
     };
   }
