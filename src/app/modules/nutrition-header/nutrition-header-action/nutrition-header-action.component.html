@@ -1,0 +1,18 @@
+<ng-container *ngIf="action$ | async as action">
+  <div class="note-action" *ngIf="action.note">
+    <button mat-raised-button color="primary" (click)="onSaveNote()">
+      Save
+    </button>
+
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+  </div>
+
+  <button
+    *ngIf="action.notes"
+    mat-raised-button
+    color="primary"
+    [routerLink]="notePage"
+  >
+    Add Note
+  </button>
+</ng-container>

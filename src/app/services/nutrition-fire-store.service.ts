@@ -14,10 +14,27 @@ import { traceUntilFirst } from '@angular/fire/performance';
 
 import { User } from 'firebase/auth';
 
-import { filter, from, Observable, switchMap, map } from 'rxjs';
+import {
+  filter,
+  from,
+  Observable,
+  switchMap,
+  map,
+  first,
+  OperatorFunction,
+  pipe,
+} from 'rxjs';
 import { NutritionAuthService } from '../auth/nutrition-auth.service';
-import { NutritionNoteDocument } from '../types/nutrition-note-document.interface';
 import { NutritionNote } from '../types/nutrition-note.interface';
+
+function authMetadataDoc<T>(
+  fn: (userId: string) => Observable<T>
+): OperatorFunction<User, T> {
+  return pipe(
+    map(({ uid }) => uid),
+    switchMap(fn)
+  );
+}
 
 @Injectable({ providedIn: 'root' })
 export class NutritionFireStoreService {
@@ -43,7 +60,7 @@ export class NutritionFireStoreService {
   }
 
   public deleteNutritionDocument(noteId: string): Observable<void> {
-    return this._nutritionMetadata((userId: string) =>
+    return this._nutritionMetadataOnce((userId) =>
       from(
         deleteDoc(doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`))
       )
@@ -51,7 +68,7 @@ export class NutritionFireStoreService {
   }
 
   public addNutritionDocument(note: NutritionNote): Observable<unknown> {
-    return this._nutritionMetadata((userId: string) =>
+    return this._nutritionMetadataOnce((userId) =>
       from(
         addDoc(collection(this._fireStore, `nutrition/${userId}/notes`), note)
       )
@@ -59,12 +76,13 @@ export class NutritionFireStoreService {
   }
 
   public updateNutritionDocument(
-    note: NutritionNoteDocument
+    noteId: string,
+    note: NutritionNote
   ): Observable<void> {
-    return this._nutritionMetadata((userId: string) =>
+    return this._nutritionMetadataOnce((userId) =>
       from(
         updateDoc(
-          doc(this._fireStore, `nutrition/${userId}/notes/${note.noteId}`),
+          doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`),
           note
         )
       )
@@ -76,8 +94,16 @@ export class NutritionFireStoreService {
   ): Observable<T> {
     return this._auth.user$.pipe(
       filter((user): user is User => user !== null),
-      map(({ uid }) => uid),
-      switchMap(fn)
+      authMetadataDoc(fn)
+    );
+  }
+
+  private _nutritionMetadataOnce<T>(
+    fn: (userId: string) => Observable<T>
+  ): Observable<T> {
+    return this._auth.user$.pipe(
+      first((user): user is User => user !== null),
+      authMetadataDoc(fn)
     );
   }
 }

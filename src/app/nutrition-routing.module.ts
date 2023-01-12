@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NutritionRoutersPages } from './types/nutrition-routing-pages.emun';
+import { NutritionRoutersPages } from './types/nutrition-routing-pages.enum';
 
 const nutritionRoutes: Routes = [
   {

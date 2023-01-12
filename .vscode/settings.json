@@ -1,15 +1,11 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "eslint.format.enable": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.stylelint": true,
-        "source.fixAll.eslint": true 
-    },    
-    "stylelint.validate": [
-        "css",
-        "less",
-        "postcss",
-        "scss"
-    ]
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  },
+  "stylelint.validate": ["css", "less", "postcss", "scss"],
+  "cSpell.words": ["Nutritionix", "titlecase"]
 }

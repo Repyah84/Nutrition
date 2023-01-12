@@ -1,11 +1,11 @@
-export abstract class NutritionSerializer<A, B> {
+export abstract class NutritionSerializer<A extends Object, B extends Object> {
   public constructor(protected readonly obj: B) {}
 
   public stringGuard(value: unknown): value is string {
     return typeof value === 'string';
   }
 
-  public numberGuard(value: unknown): value is string {
+  public numberGuard(value: unknown): value is number {
     return typeof value === 'number';
   }
 
@@ -19,7 +19,10 @@ export abstract class NutritionSerializer<A, B> {
     return key in this.obj;
   }
 
-  public serialize<T>(key: keyof A, fn: (value: unknown) => value is T): T {
+  public serialize<T, K extends keyof A>(
+    key: K,
+    fn: (value: unknown) => value is T
+  ): T {
     if (this.hasField(key)) {
       const value = this.obj[key];
 
@@ -28,6 +31,6 @@ export abstract class NutritionSerializer<A, B> {
       }
     }
 
-    throw new Error(`${key} is undefined`);
+    throw new Error(`${String(key)} is undefined`);
   }
 }

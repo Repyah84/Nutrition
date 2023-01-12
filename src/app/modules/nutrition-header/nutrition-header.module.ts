@@ -7,9 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { RouterModule } from '@angular/router';
 import { NutritionBodyActionModule } from '../nutrition-body-action/nutrition-body-action.module';
+import { NutritionHeaderActionComponent } from './nutrition-header-action/nutrition-header-action.component';
 
 @NgModule({
-  declarations: [NutritionHeaderComponent],
+  declarations: [NutritionHeaderComponent, NutritionHeaderActionComponent],
   imports: [
     CommonModule,
     MatButtonModule,

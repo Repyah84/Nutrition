@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NutritionAuthService } from 'src/app/auth/nutrition-auth.service';
 import { switchMap } from 'rxjs/operators';
-import { NutritionRoutersPages } from 'src/app/types/nutrition-routing-pages.emun';
+import { NutritionRoutersPages } from 'src/app/types/nutrition-routing-pages.enum';
 import { Observable, Subscription } from 'rxjs';
 import { UserCredential } from '@angular/fire/auth';
 

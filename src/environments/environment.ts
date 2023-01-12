@@ -2,18 +2,26 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { NutritionEnvironment } from 'src/app/types/nutrition-environment.interfice';
+
+export const environment: NutritionEnvironment = {
+  production: false,
   firebase: {
     projectId: 'nutrition-d7970',
     appId: '1:856681086085:web:aac95852b7fa9170cdbdec',
-    databaseURL: 'https://nutrition-d7970-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+      'https://nutrition-d7970-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'nutrition-d7970.appspot.com',
     locationId: 'europe-west',
     apiKey: 'AIzaSyA-gewSHjPEaVw5TeQORMNqtiD1iXdxYnQ',
     authDomain: 'nutrition-d7970.firebaseapp.com',
     messagingSenderId: '856681086085',
   },
-  production: false
+  nutritionix: {
+    id: '505ea1f5',
+    key: 'a8654bc1f5d68ed03f8e3ae59cb6aa25',
+    url: `https://trackapi.nutritionix.com/v2`,
+  },
 };
 
 /*

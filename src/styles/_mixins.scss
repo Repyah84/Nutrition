@@ -1,9 +1,9 @@
 @use "functions";
 
-@mixin media($breakpoin-name) {
-  $breakpoin: functions.breakpoin($breakpoin-name);
+@mixin media($breakpoint-name) {
+  $breakpoint: functions.breakpoint($breakpoint-name);
 
-  @media (min-width: $breakpoin) {
+  @media (min-width: $breakpoint) {
     @content;
   }
 }
