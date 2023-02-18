@@ -11,7 +11,7 @@ export class NutritionNoteDocumentSerializer extends NutritionSerializer<
     super(document);
   }
 
-  public get nutritionNoteDocument(): NutritionNoteDocument {
+  public getNutritionNoteDocument(): NutritionNoteDocument {
     return {
       noteId: this.serialize('noteId', this.stringGuard),
       date: this.serialize('date', this.numberGuard),

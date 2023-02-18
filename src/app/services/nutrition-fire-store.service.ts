@@ -22,18 +22,12 @@ import {
   map,
   first,
   OperatorFunction,
-  pipe,
 } from 'rxjs';
 import { NutritionAuthService } from '../auth/nutrition-auth.service';
 import { NutritionNote } from '../types/nutrition-note.interface';
 
-function authMetadataDoc<T>(
-  fn: (userId: string) => Observable<T>
-): OperatorFunction<User, T> {
-  return pipe(
-    map(({ uid }) => uid),
-    switchMap(fn)
-  );
+function takeOnce(): OperatorFunction<User | null, User> {
+  return first((user): user is User => user !== null);
 }
 
 @Injectable({ providedIn: 'root' })
@@ -44,7 +38,7 @@ export class NutritionFireStoreService {
   ) {}
 
   public getNotesList(): Observable<DocumentData[]> {
-    return this._nutritionMetadata((userId: string) =>
+    return this._nutritionDocumentData((userId: string) =>
       collectionData(collection(this._fireStore, `nutrition/${userId}/notes`), {
         idField: 'noteId',
       }).pipe(traceUntilFirst('fireStore'))
@@ -52,7 +46,7 @@ export class NutritionFireStoreService {
   }
 
   public getNutritionDocument(noteId: string): Observable<DocumentData> {
-    return this._nutritionMetadata((userId: string) =>
+    return this._nutritionDocumentData((userId: string) =>
       docData(doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`), {
         idField: 'noteId',
       })
@@ -60,18 +54,22 @@ export class NutritionFireStoreService {
   }
 
   public deleteNutritionDocument(noteId: string): Observable<void> {
-    return this._nutritionMetadataOnce((userId) =>
-      from(
-        deleteDoc(doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`))
-      )
+    return this._nutritionDocumentData(
+      (userId) =>
+        from(
+          deleteDoc(doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`))
+        ),
+      takeOnce
     );
   }
 
   public addNutritionDocument(note: NutritionNote): Observable<unknown> {
-    return this._nutritionMetadataOnce((userId) =>
-      from(
-        addDoc(collection(this._fireStore, `nutrition/${userId}/notes`), note)
-      )
+    return this._nutritionDocumentData(
+      (userId) =>
+        from(
+          addDoc(collection(this._fireStore, `nutrition/${userId}/notes`), note)
+        ),
+      takeOnce
     );
   }
 
@@ -79,31 +77,27 @@ export class NutritionFireStoreService {
     noteId: string,
     note: NutritionNote
   ): Observable<void> {
-    return this._nutritionMetadataOnce((userId) =>
-      from(
-        updateDoc(
-          doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`),
-          note
-        )
-      )
+    return this._nutritionDocumentData(
+      (userId) =>
+        from(
+          updateDoc(
+            doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`),
+            note
+          )
+        ),
+      takeOnce
     );
   }
 
-  private _nutritionMetadata<T>(
-    fn: (userId: string) => Observable<T>
+  private _nutritionDocumentData<T>(
+    fn: (userId: string) => Observable<T>,
+    opFn: () => OperatorFunction<User | null, User> = () =>
+      filter((user): user is User => user !== null)
   ): Observable<T> {
     return this._auth.user$.pipe(
-      filter((user): user is User => user !== null),
-      authMetadataDoc(fn)
-    );
-  }
-
-  private _nutritionMetadataOnce<T>(
-    fn: (userId: string) => Observable<T>
-  ): Observable<T> {
-    return this._auth.user$.pipe(
-      first((user): user is User => user !== null),
-      authMetadataDoc(fn)
+      opFn(),
+      map(({ uid }) => uid),
+      switchMap(fn)
     );
   }
 }

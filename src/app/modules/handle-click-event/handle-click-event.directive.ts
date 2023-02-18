@@ -1,7 +1,11 @@
 import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
-@Directive({ selector: '[nutritionBodyAction]' })
-export class NutritionBodyActionDirective {
+@Directive({ selector: '[handleClickEvent]' })
+export class HandleClickEventDirective {
+  @Output() public readonly hostClick = new EventEmitter<void>();
+
+  @Output() public readonly bodyClick = new EventEmitter<void>();
+
   @HostListener('body:click') public onBodyClick(): void {
     this.bodyClick.emit();
   }
@@ -11,8 +15,4 @@ export class NutritionBodyActionDirective {
 
     this.hostClick.emit();
   }
-
-  @Output() public readonly hostClick = new EventEmitter<void>();
-
-  @Output() public readonly bodyClick = new EventEmitter<void>();
 }

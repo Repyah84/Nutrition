@@ -7,6 +7,8 @@ import {
   switchMap,
   withLatestFrom,
   first,
+  exhaustMap,
+  tap,
 } from 'rxjs';
 import { NutritionFireStoreService } from 'src/app/services/nutrition-fire-store.service';
 import { NutritionNotesCacheService } from 'src/app/services/nutrition-notes-cache.service';
@@ -31,15 +33,17 @@ export class NutritionHeaderActionService implements OnDestroy {
       this._saveClick$
         .pipe(
           withLatestFrom(this._nutrientsState.nutritionNutritionixState$),
-          switchMap(([_, nutrition]) =>
+          exhaustMap(([_, nutrition]) =>
             defer(() => {
               const noteId = this._route.snapshot.queryParamMap.get('noteId');
+
               if (noteId === null) {
                 return this._nutritionFireStore.addNutritionDocument({
                   date: Date.now(),
                   nutrition,
                 });
               }
+
               return this._nutritionNotesCache.getItem(noteId).pipe(
                 first(
                   (noteDocument): noteDocument is NutritionNoteDocument =>

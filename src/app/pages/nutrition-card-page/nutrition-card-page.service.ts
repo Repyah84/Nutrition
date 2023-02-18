@@ -9,14 +9,13 @@ import {
   startWith,
   Subject,
   switchMap,
-  tap,
 } from 'rxjs';
 import { NutritionNutritionixActionService } from 'src/app/services/nutrition-nutritionix-action.service';
 import { NutritionNutritionixStateService } from 'src/app/services/nutrition-nutritionix-state.service';
 
 @Injectable()
 export class NutritionCardPageService {
-  public readonly invalidateState$ = new Subject<void>();
+  private readonly _invalidateState$ = new Subject<void>();
 
   private readonly _nutrition$ = new Subject<string>();
 
@@ -35,7 +34,7 @@ export class NutritionCardPageService {
   private readonly _overlay$: Observable<boolean> = merge(
     this._items$.pipe(map((items) => items.length > 0)),
     this._nutritionixItems$.pipe(mapTo(false)),
-    this.invalidateState$.pipe(mapTo(false))
+    this._invalidateState$.pipe(mapTo(false))
   );
 
   public readonly nutritionComposition$ = combineLatest({
@@ -53,15 +52,19 @@ export class NutritionCardPageService {
     this._nutrition$.next(name);
   }
 
-  public addNutritionixItem(itemName: string): void {
-    this._nutritionixState.add({ count: 1, itemName });
+  public increaseItem(itemName: string): void {
+    this._nutritionixState.increase({ count: 1, itemName });
   }
 
-  public deleteNutritionixItem(itemName: string): void {
-    this._nutritionixState.delete({ count: -1, itemName });
+  public decreaseItem(itemName: string): void {
+    this._nutritionixState.decrease({ count: -1, itemName });
   }
 
-  public excludeNutritionixItem(itemName: string): void {
-    this._nutritionixState.exclude(itemName);
+  public deleteItem(itemName: string): void {
+    this._nutritionixState.delete({ count: 0, itemName });
+  }
+
+  public invalidateState(): void {
+    this._invalidateState$.next();
   }
 }

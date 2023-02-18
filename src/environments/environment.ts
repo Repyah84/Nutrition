@@ -2,9 +2,9 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { NutritionEnvironment } from 'src/app/types/nutrition-environment.interfice';
+import { Environment } from 'src/environments/environment.interface';
 
-export const environment: NutritionEnvironment = {
+export const environment: Environment = {
   production: false,
   firebase: {
     projectId: 'nutrition-d7970',

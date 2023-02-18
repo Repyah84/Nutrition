@@ -13,7 +13,7 @@
 <div class="calculate">
   <button
     mat-icon-button
-    (click)="onAddItem(nutritionixItem.food_name)"
+    (click)="onIncrease(nutritionixItem.food_name)"
     color="primary"
   >
     <mat-icon>add_circle_outline</mat-icon>
@@ -24,7 +24,7 @@
   <button
     mat-icon-button
     [disabled]="nutritionixItem.count < 2"
-    (click)="onDeleteItem(nutritionixItem.food_name)"
+    (click)="onDecrease(nutritionixItem.food_name)"
     color="primary"
   >
     <mat-icon>remove_circle_outline</mat-icon>
@@ -34,7 +34,7 @@
 <button
   class="btn-delete"
   mat-icon-button
-  (click)="onExclude(nutritionixItem.food_name)"
+  (click)="onDelete(nutritionixItem.food_name)"
   color="warn"
 >
   <mat-icon>delete_forever</mat-icon>

@@ -7,39 +7,3 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-// @use "./styles/mixins";
-
-// html,
-// body {
-//   height: 100%;
-// }
-
-// body {
-//   --nutrition-blue: #007bff;
-//   --nutrition-indigo: #6610f2;
-//   --nutrition-purple: #6f42c1;
-//   --nutrition-pink: #e83e8c;
-//   --nutrition-red: #dc3545;
-//   --nutrition-orange: #fd7e14;
-//   --nutrition-yellow: #ffc107;
-//   --nutrition-green: #28a745;
-//   --nutrition-teal: #20c997;
-//   --nutrition-cyan: #17a2b8;
-
-//   --nutrition-white: #fff;
-//   --nutrition-gray: #6c757d;
-//   --nutrition-gray-dark: #343a40;
-//   --nutrition-primary: #007bff;
-//   --nutrition-success: #28a745;
-//   --nutrition-info: #17a2b8;
-//   --nutrition-warning: #ffc107;
-//   --nutrition-danger: #dc3545;
-//   --nutrition-light: #f8f9fa;
-//   --nutrition-dark: #343a40;
-
-//   @include mixins.typography("body-m");
-
-//   font-family: "Roboto", sans-serif;
-
-//   margin: 0;
-// }

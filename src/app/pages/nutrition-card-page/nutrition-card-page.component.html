@@ -22,13 +22,17 @@
 <ng-container *ngIf="nutritionComposition$ | async as nutritionComposition">
   <div class="nutrition-list">
     <app-nutrition-nutritionix-item
-      *ngFor="let item of nutritionComposition.nutritionixItems"
+      *ngFor="
+        let item of nutritionComposition.nutritionixItems;
+        trackBy: trackByIndexFn
+      "
       [nutritionixItem]="item"
     ></app-nutrition-nutritionix-item>
   </div>
 
   <ng-template
     cdkConnectedOverlay
+    [cdkConnectedOverlayFlexibleDimensions]="true"
     [cdkConnectedOverlayOrigin]="trigger"
     [cdkConnectedOverlayOpen]="nutritionComposition.isOpen"
   >

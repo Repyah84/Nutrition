@@ -13,15 +13,15 @@ export class NutritionNutritionixItemComponent {
 
   public constructor(private readonly _nutritionix: NutritionCardPageService) {}
 
-  public onAddItem(itemName: string): void {
-    this._nutritionix.addNutritionixItem(itemName);
+  public onIncrease(itemName: string): void {
+    this._nutritionix.increaseItem(itemName);
   }
 
-  public onDeleteItem(itemName: string): void {
-    this._nutritionix.deleteNutritionixItem(itemName);
+  public onDecrease(itemName: string): void {
+    this._nutritionix.decreaseItem(itemName);
   }
 
-  public onExclude(itemName: string): void {
-    this._nutritionix.excludeNutritionixItem(itemName);
+  public onDelete(itemName: string): void {
+    this._nutritionix.deleteItem(itemName);
   }
 }

@@ -11,6 +11,9 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
+import { NUTRITION_DOCUMENT_DATA } from './tokens/nutrition-document-data';
+import { NUTRITION_HANDLE_ROUTING_DATA_TOKEN } from './tokens/nutrition-handle-routing-data.token';
+import { NutritionNutritionixStateService } from './services/nutrition-nutritionix-state.service';
 
 @NgModule({
   declarations: [NutritionComponent],
@@ -23,6 +26,12 @@ import { HttpClientModule } from '@angular/common/http';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+  ],
+  providers: [
+    {
+      provide: NUTRITION_DOCUMENT_DATA,
+      useExisting: NUTRITION_HANDLE_ROUTING_DATA_TOKEN,
+    },
   ],
   bootstrap: [NutritionComponent],
 })

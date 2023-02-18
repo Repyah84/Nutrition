@@ -6,7 +6,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatIconModule } from '@angular/material/icon';
 
 import { RouterModule } from '@angular/router';
-import { NutritionBodyActionModule } from '../nutrition-body-action/nutrition-body-action.module';
+import { HandleClickEventModule } from '../handle-click-event/handle-click-event.module';
 import { NutritionHeaderActionComponent } from './nutrition-header-action/nutrition-header-action.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { NutritionHeaderActionComponent } from './nutrition-header-action/nutrit
     OverlayModule,
     MatIconModule,
     RouterModule,
-    NutritionBodyActionModule,
+    HandleClickEventModule,
   ],
   exports: [NutritionHeaderComponent],
 })

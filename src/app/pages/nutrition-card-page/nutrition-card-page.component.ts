@@ -1,7 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  Self,
+  TrackByFunction,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription, debounceTime } from 'rxjs';
+import { Subscription, debounceTime, of } from 'rxjs';
 import { emergenceAnimation } from 'src/app/animation/nutrition-emergence.animation';
+import { NUTRITION_DOCUMENT_DATA } from '../../tokens/nutrition-document-data';
 import { NutritionCardPageService } from './nutrition-card-page.service';
 
 @Component({
@@ -17,10 +24,14 @@ export class NutritionCardPageComponent implements OnDestroy {
 
   public readonly search = new FormControl('');
 
+  public readonly trackByIndexFn = (index: number): number => index;
+
   public readonly nutritionComposition$ =
     this._nutritionix.nutritionComposition$;
 
-  public constructor(private readonly _nutritionix: NutritionCardPageService) {
+  public constructor(
+    @Self() private readonly _nutritionix: NutritionCardPageService
+  ) {
     this._subscription.add(
       this.search.valueChanges.pipe(debounceTime(500)).subscribe((value) => {
         if (value) {
@@ -28,7 +39,7 @@ export class NutritionCardPageComponent implements OnDestroy {
           return;
         }
 
-        this._nutritionix.invalidateState$.next();
+        this._nutritionix.invalidateState();
       })
     );
   }
@@ -36,13 +47,13 @@ export class NutritionCardPageComponent implements OnDestroy {
   public onSelectItem(itemName: string): void {
     this.search.setValue('', { emitEvent: false });
 
-    this._nutritionix.addNutritionixItem(itemName);
+    this._nutritionix.increaseItem(itemName);
   }
 
   public onBtnClear(): void {
     this.search.setValue('', { emitEvent: false });
 
-    this._nutritionix.invalidateState$.next();
+    this._nutritionix.invalidateState();
   }
 
   public ngOnDestroy(): void {

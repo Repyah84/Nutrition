@@ -10,9 +10,8 @@ import { NutritionRouterEventService } from './nutrition-router-event.service';
 export class NutritionNotesCacheService {
   public readonly notesList$ = this._nutritionFireStore.getNotesList().pipe(
     map((documentList) =>
-      documentList.map(
-        (document) =>
-          new NutritionNoteDocumentSerializer(document).nutritionNoteDocument
+      documentList.map((document) =>
+        new NutritionNoteDocumentSerializer(document).getNutritionNoteDocument()
       )
     ),
     share({
