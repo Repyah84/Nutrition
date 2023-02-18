@@ -6,17 +6,17 @@
 >
   <mat-label>Search Nutrition</mat-label>
 
-  <input matInput type="text" [formControl]="search" />
+  <input matInput type="text" [formControl]="searchControl" />
 
-  <button
-    *ngIf="search.value"
-    matSuffix
-    color="warn"
-    mat-icon-button
-    (click)="onBtnClear()"
-  >
-    <mat-icon>close</mat-icon>
-  </button>
+  <div matSuffix>
+    <button
+      *ngIf="searchControl.value; else search"
+      mat-icon-button
+      (click)="onBtnClear()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 </mat-form-field>
 
 <ng-container *ngIf="nutritionComposition$ | async as nutritionComposition">
@@ -49,3 +49,7 @@
     </div>
   </ng-template>
 </ng-container>
+
+<ng-template #search>
+  <mat-icon>search</mat-icon>
+</ng-template>

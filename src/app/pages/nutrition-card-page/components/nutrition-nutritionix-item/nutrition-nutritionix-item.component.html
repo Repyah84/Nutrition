@@ -1,13 +1,9 @@
 <div class="nutrition">
-  <img class="image" [src]="nutritionixItem.photo.thumb" />
+  <div class="image-wrapper">
+    <img class="image" [src]="nutritionixItem.photo.thumb" />
+  </div>
 
   <span class="name">{{ nutritionixItem.food_name | titlecase }}</span>
-</div>
-
-<div class="nutrients">
-  <span>{{ nutritionixItem.nf_calories | number : "1.0-2" }}</span>
-
-  <span class="calories-title"> cl</span>
 </div>
 
 <div class="calculate">
@@ -29,6 +25,12 @@
   >
     <mat-icon>remove_circle_outline</mat-icon>
   </button>
+</div>
+
+<div class="nutrients">
+  <span>{{ nutritionixItem.nf_calories | number : "1.0-2" }}</span>
+
+  <span class="calories-title"> cl</span>
 </div>
 
 <button

@@ -1,0 +1,81 @@
+@use "../../../../../styles/functions";
+
+%_link {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  padding: 10px;
+
+  font-weight: 700;
+
+  color: functions.color(base dark);
+
+  &:hover {
+    background-color: functions.color(primary 50);
+  }
+}
+
+:host {
+  padding: 0 10px 10px;
+
+  background-color: beige;
+
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+
+  grid-template-areas:
+    "title btn-menu"
+    "main main";
+
+  border-radius: 10px;
+
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.title {
+  grid-area: title;
+
+  margin: 0;
+
+  margin-top: 7px;
+}
+
+.btn-menu {
+  grid-area: btn-menu;
+}
+
+.main {
+  grid-area: main;
+}
+
+.navigation {
+  overflow: hidden;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: functions.color(base light);
+
+  border-radius: 5px;
+
+  box-shadow: 0 2px 4px -1px #0003, 0 4px 5px #00000024, 0 1px 10px #0000001f;
+}
+
+.link {
+  @extend %_link;
+
+  text-decoration: none;
+}
+
+.btn-link {
+  @extend %_link;
+
+  border: none;
+
+  cursor: pointer;
+}

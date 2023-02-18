@@ -1,4 +1,7 @@
-<a class="notes-link" [routerLink]="notesPage"
+<a
+  class="notes-link"
+  [routerLink]="notesPage"
+  routerLinkActive="notes-link--active"
   ><mat-icon>notes</mat-icon> <br />
 
   <span>Notes</span></a
@@ -21,7 +24,6 @@
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="trigger"
   [cdkConnectedOverlayOpen]="isOpen"
-  class="navigation"
 >
   <div @emergenceAnimation class="navigation">
     <a class="link" [routerLink]="profilePage" routerLinkActive="link--active"

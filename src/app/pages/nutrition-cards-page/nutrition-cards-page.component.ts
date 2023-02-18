@@ -26,20 +26,10 @@ export class NutritionCardsPageComponent {
 
   public constructor(
     @Self() private readonly _nutrition: NutritionCardsPageService,
-    private readonly _store: NutritionNotesCacheService,
-    private readonly _router: Router
+    private readonly _store: NutritionNotesCacheService
   ) {}
 
-  public onSelectNote(noteId: string): void {
-    void this._router.navigate([NutritionRoutersPages.NOTE], {
-      queryParams: {
-        noteId,
-      },
-    });
-  }
-
-  public onDelete(event: Event, noteId: string): void {
-    event.stopPropagation();
+  public onDeleteNote(noteId: string): void {
     this._nutrition.delete(noteId);
   }
 }

@@ -1,0 +1,38 @@
+<h3 class="title">{{ note.date | date }}</h3>
+
+<button
+  handleClickEvent
+  (hostClick)="isOpen = !isOpen"
+  (bodyClick)="isOpen = false"
+  class="btn-menu"
+  mat-icon-button
+  color="primary"
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+>
+  <mat-icon>menu_open</mat-icon>
+</button>
+
+<main class="main">
+  All calories: {{ note.nutrition | allCalories | number : "1.1-2" }}
+</main>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen"
+>
+  <div @emergenceAnimation class="navigation">
+    <a
+      class="link"
+      [routerLink]="notePage"
+      [queryParams]="{ noteId: note.noteId }"
+    >
+      <mat-icon>visibility</mat-icon> <span>View</span>
+    </a>
+
+    <button class="btn-link" (click)="onDelete()">
+      <mat-icon>delete</mat-icon> <span>Delete</span>
+    </button>
+  </div>
+</ng-template>

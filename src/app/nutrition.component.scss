@@ -16,4 +16,10 @@
   grid-area: main;
   overflow-y: auto;
   display: flex;
+
+  background-image: url(^assets/img/svg/nutrition.svg);
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
