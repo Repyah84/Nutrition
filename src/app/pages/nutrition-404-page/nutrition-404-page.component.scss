@@ -1,0 +1,33 @@
+@use "../../../styles/variables";
+
+:host {
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+  align-items: flex-start;
+
+  padding-top: 100px;
+}
+
+.pop {
+  padding: 20px;
+  width: min(400px, 80%);
+
+  background-color: white;
+
+  border-radius: 10px;
+
+  box-shadow: variables.$box-shadow;
+
+  text-align: center;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+
+  margin: 0 auto;
+}
