@@ -16,7 +16,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Deploy
 
-Run `ng deploy` to deploy the project (https://nutrition-d7970.web.app)
+Run `ng deploy` to deploy the project https://nutrition-d7970.web.app
 
 ## Further help
 
