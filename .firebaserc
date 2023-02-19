@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "nutrition-d7970": {
+      "hosting": {
+        "nutrition": [
+          "nutrition-d7970"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "nutrition-d7970"
+  }
+}
