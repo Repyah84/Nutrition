@@ -16,7 +16,6 @@ import { User } from 'firebase/auth';
 
 import {
   filter,
-  from,
   Observable,
   switchMap,
   map,
@@ -56,9 +55,7 @@ export class NutritionFireStoreService {
   public deleteNutritionDocument(noteId: string): Observable<void> {
     return this._nutritionDocumentData(
       (userId) =>
-        from(
-          deleteDoc(doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`))
-        ),
+        deleteDoc(doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`)),
       takeOnce
     );
   }
@@ -66,9 +63,7 @@ export class NutritionFireStoreService {
   public addNutritionDocument(note: NutritionNote): Observable<unknown> {
     return this._nutritionDocumentData(
       (userId) =>
-        from(
-          addDoc(collection(this._fireStore, `nutrition/${userId}/notes`), note)
-        ),
+        addDoc(collection(this._fireStore, `nutrition/${userId}/notes`), note),
       takeOnce
     );
   }
@@ -79,18 +74,16 @@ export class NutritionFireStoreService {
   ): Observable<void> {
     return this._nutritionDocumentData(
       (userId) =>
-        from(
-          updateDoc(
-            doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`),
-            note
-          )
+        updateDoc(
+          doc(this._fireStore, `nutrition/${userId}/notes/${noteId}`),
+          note
         ),
       takeOnce
     );
   }
 
   private _nutritionDocumentData<T>(
-    fn: (userId: string) => Observable<T>,
+    fn: (userId: string) => Observable<T> | Promise<T>,
     opFn: () => OperatorFunction<User | null, User> = () =>
       filter((user): user is User => user !== null)
   ): Observable<T> {
