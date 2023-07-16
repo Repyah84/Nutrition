@@ -29,5 +29,6 @@ export class NutritionAuthService {
     return from(signOut(this._auth));
   }
 
+  //
   // TODO signInWithEmailAndPassword(auth: Auth, email: string, password: string): Promise<UserCredential>;
 }
